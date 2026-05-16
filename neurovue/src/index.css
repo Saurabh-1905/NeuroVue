@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap');
+
+:root {
+  --bg-color: #020202; /* Deeper galaxy black */
+  --accent-blue: #00f2ff;
+  --accent-cyan: #00d1ff;
+  --signal-white: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.6);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 209, 255, 0.03) 0%, transparent 40%);
+  color: var(--signal-white);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2 {
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.scrolly-container {
+  height: 600vh; /* Long enough for smooth storytelling */
+  position: relative;
+}
+
+.canvas-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* Star Field */
+.canvas-wrapper::before,
+.canvas-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+  background-size: 550px 550px, 350px 350px, 250px 250px;
+  background-position: 0 0, 40px 60px, 130px 270px;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.canvas-wrapper::before {
+  animation: starsTwinkle 100s linear infinite;
+}
+
+.canvas-wrapper::after {
+  animation: starsTwinkle 150s linear infinite reverse;
+  opacity: 0.2;
+}
+
+@keyframes starsTwinkle {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-50%, -50%); }
+}
+
+canvas {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 50px rgba(0, 242, 255, 0.1));
+}
+
+.overlay-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.story-beat {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10%;
+}
+
+.story-beat.right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.beat-title {
+  font-size: clamp(3rem, 10vw, 8rem);
+  line-height: 0.9;
+  margin-bottom: 1rem;
+}
+
+.beat-subtitle {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 300;
+  color: var(--text-dim);
+  max-width: 500px;
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
+.bioluminescent {
+  color: var(--accent-blue);
+}
+
+/* Button & UI */
+.btn-premium {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  padding: 1rem 2.5rem;
+  color: var(--signal-white);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+  pointer-events: auto;
+}
+
+.btn-premium:hover {
+  background: rgba(0, 242, 255, 0.1);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+}
+
+.loader-container {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-color);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-bar-bg {
+  width: 200px;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.loader-bar-fill {
+  height: 100%;
+  background: var(--accent-blue);
+  width: 0%;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px var(--accent-blue);
+}
+
+.scroll-indicator {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  opacity: 0.5;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
